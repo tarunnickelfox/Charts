@@ -20,16 +20,16 @@ class MainActivity : AppCompatActivity() {
         val entryList1 = mutableListOf<Entry>()
         val entryList2 = mutableListOf<Entry>()
         val entryList3 = mutableListOf<Entry>()
-        for (i in 0..5) {
-            entryList1.add(Entry(i.toFloat(), 2.0f))
+        for (i in 0..13) {
+            entryList1.add(Entry(i.toFloat(), lhEntriesAny[i].toFloat()))
         }
 
-        for (i in 6..8) {
+        for (i in 13..18) {
             entryList2.add(Entry(i.toFloat(), 0f))
         }
 
-        for (i in 8..12) {
-            entryList3.add(Entry(i.toFloat(), 3.0f))
+        for (i in 18..25) {
+            entryList3.add(Entry(i.toFloat(), 20.0f/i))
         }
 
         val dataSet1 = LineDataSet(entryList1, "Label1"); // add entries to dataset
@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity() {
 
         dataSet1.color = R.color.colorPrimaryDark
         dataSet1.valueTextColor = R.color.colorAccent
+        dataSet1.mode = LineDataSet.Mode.CUBIC_BEZIER
+        dataSet1.cubicIntensity = 0.1f
 
         dataSet2.isVisible = false
 
@@ -45,9 +47,26 @@ class MainActivity : AppCompatActivity() {
         dataSet3.valueTextColor = R.color.colorAccent
 
         val lineData = LineData(dataSet1, dataSet2, dataSet3)
-        lineChart.setData(lineData)
+        lineChart.data = lineData
         lineChart.invalidate()
     }
+
+    private val lhEntriesAny: Array<Double> = arrayOf(
+        0.0,
+        1.820411016,
+        0.0,
+        2.861975264,
+        4.32281039,
+        3.92097487,
+        4.007942457,
+        5.429096002,
+        3.970139321,
+        3.889788656,
+        2.914878966,
+        4.940224826,
+        5.466737925,
+        5.812275749
+    )
 
     /*private fun getLineDataSets(): List<LineDataSet> {
         val entryList = mutableListOf<Entry>()
