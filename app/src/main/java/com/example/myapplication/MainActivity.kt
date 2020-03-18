@@ -15,19 +15,130 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         lineChart.setPinchZoom(false)
+        lineChart.setScaleEnabled(false)
 
-        val dataSet = LineDataSet(getMPChartsData(), "Label"); // add entries to dataset
-        dataSet.color = R.color.colorAccent
-        dataSet.valueTextColor = R.color.colorPrimary
+        val entryList1 = mutableListOf<Entry>()
+        val entryList2 = mutableListOf<Entry>()
+        val entryList3 = mutableListOf<Entry>()
+        for (i in 0..5) {
+            entryList1.add(Entry(i.toFloat(), 2.0f))
+        }
 
-        val lineData = LineData(dataSet)
+        for (i in 6..8) {
+            entryList2.add(Entry(i.toFloat(), 0f))
+        }
+
+        for (i in 8..12) {
+            entryList3.add(Entry(i.toFloat(), 3.0f))
+        }
+
+        val dataSet1 = LineDataSet(entryList1, "Label1"); // add entries to dataset
+        val dataSet2 = LineDataSet(entryList2, "Label2"); // add entries to dataset
+        val dataSet3 = LineDataSet(entryList3, "Label3"); // add entries to dataset
+
+        dataSet1.color = R.color.colorPrimaryDark
+        dataSet1.valueTextColor = R.color.colorAccent
+
+        dataSet2.isVisible = false
+
+        dataSet3.color = R.color.colorPrimaryDark
+        dataSet3.valueTextColor = R.color.colorAccent
+
+        val lineData = LineData(dataSet1, dataSet2, dataSet3)
         lineChart.setData(lineData)
         lineChart.invalidate()
     }
 
-    val lhEntriesAny: Array<Double?> = arrayOf(0.0,1.820411016,0.0,2.861975264,4.32281039,3.92097487,4.007942457,5.429096002,3.970139321,3.889788656,2.914878966,4.940224826,5.466737925,5.812275749,null,5.967085664,3.418321836,5.260091179,8.364888952,null,4.7,4.4,5.7,5.4,4.2,null,6.4,null,null,null,null,4.6,4.4,null,null,null,null,null,null,null,null,null,null)
+    /*private fun getLineDataSets(): List<LineDataSet> {
+        val entryList = mutableListOf<Entry>()
 
-    fun getMPChartsData(): List<Entry?> {
+        val lhEntries = getLHEntries()
+
+        for (i: Int in lhEntries.indices) {
+            val currentEntry = lhEntries[i]
+
+            if (currentEntry != null) {
+                entryList.add(i, Entry(i.toFloat(), currentEntry))
+            } else {
+                entryList.add(i, Entry(i.toFloat(), -1.0f))
+            }
+        }
+
+        val dataSetList = mutableListOf<LineDataSet>()
+
+        var tempData = LineDataSet(mutableListOf(), "")
+        var lastData: Float? = null
+
+        for (data in entryList) {
+            if (data.y >= 0) {
+                tempData.addEntry(data)
+                tempData.color = R.color.colorAccent
+                tempData.valueTextColor = R.color.colorPrimaryDark
+            } else {
+                tempData.addEntry(data)
+                dataSetList.add(tempData)
+                tempData
+
+            }
+        }
+
+        while (data in entryList)
+
+        return dataSetList
+    }*/
+
+/*    private val lhEntriesAny: Array<Double?> = arrayOf(
+        null,
+        null,
+        null,
+        null,
+        null,
+        0.0,
+        1.820411016,
+        0.0,
+        2.861975264,
+        4.32281039,
+        3.92097487,
+        4.007942457,
+        5.429096002,
+        3.970139321,
+        3.889788656,
+        2.914878966,
+        4.940224826,
+        5.466737925,
+        5.812275749,
+        null,
+        5.967085664,
+        3.418321836,
+        5.260091179,
+        8.364888952,
+        null,
+        4.7,
+        4.4,
+        5.7,
+        5.4,
+        4.2,
+        null,
+        6.4,
+        null,
+        null,
+        null,
+        null,
+        4.6,
+        4.4,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    )
+
+    private fun getMPChartsData(): List<Entry?> {
         val data = mutableListOf<Entry?>()
         val lhEntries = getLHEntries()
 
@@ -36,21 +147,20 @@ class MainActivity : AppCompatActivity() {
             if (currentEntry != null) {
                 data.add(i, Entry(i.toFloat(), currentEntry))
             } else {
-                data.add(i, Entry(i.toFloat(), 0.0f))
+                data.add(i, Entry(i.toFloat(), -1.0f))
             }
         }
 
         return data
     }
 
-    fun getLHEntries(): Array<Float?> {
+    private fun getLHEntries(): Array<Float?> {
         val lhEntries = arrayOfNulls<Float?>(lhEntriesAny.size)
 
         for (i: Int in lhEntries.indices) {
-            lhEntries[i] = lhEntriesAny.get(i)?.toFloat()
+            lhEntries[i] = lhEntriesAny[i]?.toFloat()
         }
 
         return lhEntries
-    }
-
+    }*/
 }
