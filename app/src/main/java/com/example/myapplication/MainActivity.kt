@@ -1,10 +1,18 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.util.Log
+import android.view.MotionEvent
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.listener.ChartTouchListener
+import com.github.mikephil.charting.listener.OnChartGestureListener
+import com.github.mikephil.charting.renderer.XAxisRenderer
+import com.github.mikephil.charting.utils.ViewPortHandler
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -29,25 +37,28 @@ class MainActivity : AppCompatActivity() {
         }
 
         for (i in 18..25) {
-            entryList3.add(Entry(i.toFloat(), 20.0f/i))
+            entryList3.add(Entry(i.toFloat(), 20.0f / i))
         }
 
-        val dataSet1 = LineDataSet(entryList1, "Label1"); // add entries to dataset
-        val dataSet2 = LineDataSet(entryList2, "Label2"); // add entries to dataset
-        val dataSet3 = LineDataSet(entryList3, "Label3"); // add entries to dataset
+        val dataSet1 = LineDataSet(entryList1, "Label1") // add entries to data set
+        /*val dataSet2 = LineDataSet(entryList2, "Label2") // add entries to data set*/
+        val dataSet3 = LineDataSet(entryList3, "Label3") // add entries to data set
 
         dataSet1.color = R.color.colorPrimaryDark
         dataSet1.valueTextColor = R.color.colorAccent
         dataSet1.mode = LineDataSet.Mode.CUBIC_BEZIER
         dataSet1.cubicIntensity = 0.1f
 
-        dataSet2.isVisible = false
+        /*dataSet2.isVisible = false*/
 
         dataSet3.color = R.color.colorPrimaryDark
         dataSet3.valueTextColor = R.color.colorAccent
 
-        val lineData = LineData(dataSet1, dataSet2, dataSet3)
+        val lineData = LineData(dataSet1, dataSet3)
         lineChart.data = lineData
+
+        lineChart.xAxis.position = XAxis.XAxisPosition.BOTTOM_INSIDE
+        lineChart.setVisibleXRangeMaximum(10f)
         lineChart.invalidate()
     }
 
@@ -59,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         4.32281039,
         3.92097487,
         4.007942457,
-        5.429096002,
+        140.429096002,
         3.970139321,
         3.889788656,
         2.914878966,
